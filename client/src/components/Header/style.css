@@ -1,0 +1,121 @@
+header {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3%;
+  position: relative;
+}
+header .eye {
+  font-size: 25px;
+  color: rgb(118, 103, 237);
+  cursor: pointer;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+}
+header .logo img {
+  font-size: 30px;
+  width: 80px;
+  color: rgb(118, 103, 237);
+}
+header .burger {
+  width: 50px;
+  font-size: 30px;
+  color: rgb(118, 103, 237);
+  cursor: pointer;
+}
+
+header .logo h1 {
+  font-weight: 600;
+  font-size: 26px;
+  color: rgb(118, 103, 237);
+}
+
+header .nav {
+  display: none;
+}
+
+header .nav-mobile {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 10px;
+  position: absolute;
+  bottom: -6vh;
+  z-index: 10;
+  width: 100%;
+  right: 0;
+  height: 5vh;
+}
+
+header nav .user {
+  font-size: 28px;
+  color: rgb(89, 73, 216);
+  cursor: pointer;
+}
+
+header nav {
+  display: flex;
+  gap: 20px;
+}
+
+header nav .languages {
+  display: flex;
+  gap: 2px;
+}
+
+header nav .languages select {
+  padding: 0px 15px;
+  color: rgb(89, 73, 216);
+  font-weight: 600;
+  border: 2.5px solid rgb(89, 73, 216);
+  border-radius: 6px;
+  cursor: pointer;
+}
+header nav .languages select option {
+  font-weight: 500;
+}
+header nav .profile-div {
+  position: relative;
+}
+
+header nav .profile-div ul {
+  position: absolute;
+  list-style-type: none;
+  padding: 0 10px;
+  left: -50%;
+  display: none;
+  border-radius: 7px;
+  background-image: linear-gradient(
+    to right,
+    rgb(118, 103, 237),
+    rgb(89, 73, 216)
+  );
+  color: #fff;
+  width: max-content;
+}
+
+header nav .profile-div ul li {
+  font-size: 14px;
+  margin: 7px 0px;
+  cursor: pointer;
+}
+
+header nav .profile-div:hover ul {
+  display: block;
+}
+
+header nav .profile-div .user-data .triangle {
+  position: absolute;
+  background-color: rgb(57, 57, 241);
+  padding: 10px;
+  left: 17px;
+  top: -9px;
+  z-index: -1;
+  transform: rotate(50deg);
+}
