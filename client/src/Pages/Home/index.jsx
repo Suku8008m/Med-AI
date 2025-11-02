@@ -17,6 +17,7 @@ const status = {
   loading: "Loading",
   initial: "intital",
 };
+
 const Home = () => {
   const { apiStatus, conversation, template, displayTip } = useConversation();
 

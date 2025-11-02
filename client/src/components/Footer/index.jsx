@@ -32,6 +32,7 @@ const Footer = () => {
     template,
     conversation,
     displayTip,
+    location,
   } = useConversation();
   const [activeBtn, setActiveBtn] = useState("");
   const [userMessage, setUserMessage] = useState("");
@@ -39,8 +40,9 @@ const Footer = () => {
 
   useEffect(() => updateApiStatus(status.initial), []);
 
-  const sendApiRequest = async (event, msg = userMessage) => {
+  const sendApiRequest = async (event, msg = userMessage, location) => {
     setPreMsg(userMessage);
+
     if (event) event.preventDefault();
     if (apiStatus === status.loading) return;
 
@@ -55,6 +57,7 @@ const Footer = () => {
       const { data } = await axios.post("http://localhost:5000", {
         userMessage: msg,
         context,
+        location,
       });
 
       if (data.status) {
@@ -153,7 +156,7 @@ const Footer = () => {
   const stopListening = () => {
     setActiveBtn("");
     SpeechRecognition.stopListening();
-    sendApiRequest(event, transcript);
+    sendApiRequest(event, transcript, location);
     setUserMessage(transcript);
     resetTranscript();
     if (listeningToastId) {
@@ -213,7 +216,7 @@ const Footer = () => {
           cursor: apiStatus === status.loading ? "progress" : "pointer",
         }}
         disabled={apiStatus === status.loading}
-        onClick={(e) => sendApiRequest(e, userMessage)}
+        onClick={(e) => sendApiRequest(e, userMessage, location)}
       >
         {template.sendBtn} <LuSendHorizontal className="icon send" />
       </button>
@@ -268,7 +271,7 @@ const Footer = () => {
             cursor: apiStatus === status.loading ? "progress" : "pointer",
           }}
           disabled={apiStatus === status.loading}
-          onClick={(e) => sendApiRequest(e, userMessage)}
+          onClick={(e) => sendApiRequest(e, userMessage, location)}
         >
           {template.sendBtn} <LuSendHorizontal className="icon send" />
         </button>

@@ -71,6 +71,46 @@ export const ConversationProvider = ({ children }) => {
   const [reset, setReset] = useState(false);
   const [displayTip, setDisplayTip] = useState(false);
   const [displayBurger, setDisplayBurger] = useState(false);
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [location, setLocation] = useState("");
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+
+          setLatitude(lat);
+          setLongitude(lon);
+
+          try {
+            const res = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
+            );
+            const data = await res.json();
+
+            if (data && data.address) {
+              const { city, town, village, state, country } = data.address;
+              const locationName = `${
+                city || town || village || "Unknown"
+              }, ${state}, ${country}`;
+              setLocation(locationName);
+            } else {
+              setLocation("Location not found");
+            }
+          } catch (err) {
+            console.error("Error fetching location:", err);
+          }
+        },
+        (error) => {
+          console.error("Location access denied or unavailable:", error);
+        }
+      );
+    } else {
+      console.error("Geolocation not supported in this browser.");
+    }
+  }, []);
 
   useEffect(() => {
     const savedLanguage = sessionStorage.getItem("language");
@@ -115,8 +155,6 @@ export const ConversationProvider = ({ children }) => {
   const updateApiStatus = (status) => {
     setApiStatus(status);
   };
-
-  console.log(conversation);
   useEffect(() => {
     if (reset) {
       setConversation([]);
@@ -145,6 +183,7 @@ export const ConversationProvider = ({ children }) => {
         setDisplayBurger,
         displayBurger,
         setReset,
+        location,
       }}
     >
       {children}
