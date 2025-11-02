@@ -65,9 +65,12 @@ const Home = () => {
     event.preventDefault();
     setTipStatus(status.loading);
     try {
-      const { data } = await axios.post("http://localhost:5000/tip", {
-        language: event.target.value,
-      });
+      const { data } = await axios.post(
+        "https://med-ai-913y.onrender.com/tip",
+        {
+          language: event.target.value,
+        }
+      );
       console.log(event.target.value);
       if (data.status) {
         setTip(data.reply);

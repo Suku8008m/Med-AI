@@ -54,7 +54,7 @@ const Footer = () => {
     setSenderText(msg);
 
     try {
-      const { data } = await axios.post("http://localhost:5000", {
+      const { data } = await axios.post("https://med-ai-913y.onrender.com", {
         userMessage: msg,
         context,
         location,
